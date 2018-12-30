@@ -12,7 +12,7 @@ BEGIN
     SET current_ms = round(UNIX_TIMESTAMP(CURTIME(4)) * 1000);
     SET epoch = 1459440000000; #//change your epoch
     
-    REPLACE INTO tb_tickets (stub) VALUES ('a');
+    REPLACE INTO sec_snowflake (stub) VALUES ('a');
     SELECT LAST_INSERT_ID() INTO incr;
     
     
