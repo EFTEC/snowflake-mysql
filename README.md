@@ -19,9 +19,11 @@ So, the library is safe and it will ensure an unique number if and only if:
 * It's running in a different server and each server uses an unique id (node id).
 
 
-## usage
+## Usage
 
-1) Run the next script: [snowflake_ddl.sql](snowflake_ddl.sql)
+### Installation:
+
+* 1) Run the next script: [snowflake_ddl.sql](snowflake_ddl.sql)
 
 It will create the table and it will add a new row.
 
@@ -31,17 +33,17 @@ It also marks the database and it will allow to create a non deterministic funct
 SET GLOBAL log_bin_trust_function_creators = 1;
 ```
 
-2) Then run the next script [next_snowflake.sql](next_snowflake.sql)
+* 2) Then run the next script [next_snowflake.sql](next_snowflake.sql)
 
 It will create a new function.
 
-3) Finally, you could use as
+* 3) Finally, you could use as
 
 ```
 select next_snowflake(1)  -- where 1 is the number of the node.  It will return the number (int-64 / bigint) value
 ```
 
-It is also used on PHP using the next library
+It is also integrated in the library DaoOne (MIT License).
 
 https://github.com/EFTEC/DaoOne
 
