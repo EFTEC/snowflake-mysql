@@ -53,12 +53,32 @@ It will create a new function.
 select next_snowflake(1)  -- where 1 is the number of the node.  It will return the number (int-64 / bigint) value
 ```
 
+## PHP usage
+
 It is also integrated in the library DaoOne (MIT License).
 
 https://github.com/EFTEC/DaoOne
 
+* 1) Create the table, add a new value and create the function
+
+```php
+$dao->nodeId=1; // optional
+$dao->tableSequence='snowflake'; // optional
+$dao->createSequence(); // it creates a table called snowflake and a function called next_snowflake()
+```
+
+* 2) Usage
+
+You could generate and return the sequence as string or as float.
+
 ```php
 $dao->getSequence() // string(19) "3639032938181434317" 
+```
+
+or
+
+```php
+$dao->getSequence(true) // float 3639032938181434317
 ```
 
 
