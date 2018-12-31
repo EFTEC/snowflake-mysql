@@ -4,18 +4,48 @@ using twitter snowflake on mysql function. it's create global auto increment tab
 
 ***notice: the generator function used mysql `REPLACE INTO` statement, so you can't be use `AUTO_INCREMENT` on other tables.***
 
+## Considerations.
+
+This generator of code is based on Twitter Bootstrap.  It uses an epoch to determine the different (in 1/1000th seconds) between the epoch and the current date and time.
+
+It also allows to set a node/id, so it is possible to generate unique Id's even in a cluster-server without replications.   It only allows up to 1024 nodes.
+
+It also has a protection for race condition.  It uses a sequence generator that it's roted every 4096 iteractions.
+
+So, the library is safe and it will ensure an unique number if and only if:
+
+* There is less than 4096 iteractions every 1/1000th seconds.
+* It's running in a different server and each server uses an unique id (node id).
+
+
 ## usage
 
-Run the next script: [snowflake_ddl.sql](snowflake_ddl.sql)
+1) Run the next script: [snowflake_ddl.sql](snowflake_ddl.sql)
 
+It will create the table and it will add a new row.
+
+It also marks the database and it will allow to create a non deterministic function that modifies the database
+
+```
+SET GLOBAL log_bin_trust_function_creators = 1;
+```
+
+2) Then run the next script [next_snowflake.sql](next_snowflake.sql)
+
+It will create a new function.
+
+3) Finally, you could use as
+
+```
+select next_snowflake(1)  -- where 1 is the number of the node.  It will return the number (int-64 / bigint) value
+```
+
+It is also used on PHP using the next library
 
 https://github.com/EFTEC/DaoOne
 
+```php
+$dao->getSequence() // string(19) "3639032938181434317" 
+```
 
 
-## usage
-
-- if you want use your own epoch day. you can change the function variable of epoch,find it at   [gen_ticket64.sql](https://raw.githubusercontent.com/yejianfei/snowflake-mysql/master/gen_ticket64.sql).
-- when you have multiple databases to want using it, you must be change the function variable of node on each database.find it at [gen_ticket64.sql](https://raw.githubusercontent.com/yejianfei/snowflake-mysql/master/gen_ticket64.sql).
-- execute [tb_tickets.sql](https://raw.githubusercontent.com/yejianfei/snowflake-mysql/master/tb_tickets.sql) first to create global auto increment table, then execute [gen_ticket64.sql](https://raw.githubusercontent.com/yejianfei/snowflake-mysql/master/gen_ticket64.sql) to create the mysql function.
-- use `SELECT gen_ticket64()` statement get id.
