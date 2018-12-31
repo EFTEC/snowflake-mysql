@@ -1,9 +1,11 @@
 # snowflake-mysql
 ![snowflake.jpg](snowflake.jpg)
 
-using twitter snowflake on mysql function. it's create global auto increment table to provide database level id generator. 
+Using twitter snowflake on mysql function. it's create global auto increment table to provide database level id generator. 
 
 ***notice: the generator function used mysql `REPLACE INTO` statement, so you can't be use `AUTO_INCREMENT` on other tables.***
+
+It is based on [https://github.com/yejianfei/snowflake-mysql](https://github.com/yejianfei/snowflake-mysql)
 
 ## Considerations.
 
