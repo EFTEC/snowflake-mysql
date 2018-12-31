@@ -9,7 +9,7 @@ It is based on [https://github.com/yejianfei/snowflake-mysql](https://github.com
 
 ## Considerations.
 
-This generator of code is based on Twitter Bootstrap.  It uses an epoch to determine the different (in 1/1000th seconds) between the epoch and the current date and time.
+This generator of code is based on Twitter Bootstrap.  It uses an epoch to determine the difference (in 1/1000th seconds) between the epoch and the current date and time.
 
 It also allows to set a node/id, so it is possible to generate unique Id's even in a cluster-server without replications.   It only allows up to 1024 nodes.
 
