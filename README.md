@@ -11,12 +11,20 @@ This generator of code is based on Twitter Bootstrap.  It uses an epoch to deter
 
 It also allows to set a node/id, so it is possible to generate unique Id's even in a cluster-server without replications.   It only allows up to 1024 nodes.
 
-It also has a protection for race condition.  It uses a sequence generator that it's roted every 4096 iteractions.
+It also has protection for a race condition.  It uses a sequence generator that it's rotated every 4096 iterations.
 
-So, the library is safe and it will ensure an unique number if and only if:
+So, the library is safe, and it will ensure a unique number if and only if:
 
-* There is less than 4096 iteractions every 1/1000th seconds.
-* It's running in a different server and each server uses an unique id (node id).
+* There is less than 4096 iterations every 1/1000th seconds per each node. So, if a system requires to create 4 million ids per second, then it is not your library.
+* If it's running in a different server, then each server must use a unique identifier (node id).
+
+
+### Why does this library needs a table?
+
+Let's say we are creating a new id using node 1 at 2018-01-01 01:01:01.1234 
+What if another thread is calling it the function and it's creating a new id at the exact same time 2018-01-01 01:01:01.1234   
+
+Then, we are avoiding a collision by adding a new sequence. This sequence rotates every 4096 interactions.  So, if we are creating a node at the same time, then the sequence is still unique unless we are creating 4096 ids at the same time.
 
 
 ## Usage
