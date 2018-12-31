@@ -1,4 +1,5 @@
 # snowflake-mysql
+![snowflake.jpg](snowflake.jpg)
 
 using twitter snowflake on mysql function. it's create global auto increment table to provide database level id generator. 
 
