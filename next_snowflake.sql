@@ -1,5 +1,10 @@
+-- you could also need this one if it fails to generate the function (deterministic error...)
+SET GLOBAL log_bin_trust_function_creators = 1;
+
 DELIMITER $$
 CREATE FUNCTION `next_snowflake`(node integer) RETURNS BIGINT(20)
+MODIFIES SQL DATA
+NOT DETERMINISTIC
 BEGIN
     -- EFTEC/snowflake-mysql :
     -- based on yejianfei/snowflake-mysql https://github.com/yejianfei/snowflake-mysql/blob/master/LICENSE
@@ -19,3 +24,5 @@ BEGIN
 RETURN (current_ms - epoch) << 22 | (node << 12) | (incr % 4096);
 END$$
 DELIMITER ;
+
+SET GLOBAL log_bin_trust_function_creators = 0;
